@@ -6,6 +6,7 @@ import {
   Sparkles,
   FolderGit2,
   FolderPlus,
+  Github,
 } from "lucide-react";
 
 interface ProjectItem {
