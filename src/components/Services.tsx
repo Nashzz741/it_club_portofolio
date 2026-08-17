@@ -164,7 +164,7 @@ export default function ProjectsShowcase() {
                             rel="noreferrer"
                             className="p-2 rounded-xl bg-[#141722] border border-white/10 text-white hover:border-[#00aeef] hover:text-[#00aeef] transition-colors"
                           >
-                            <Github className="w-4 h-4" />
+                            
                           </a>
                         )}
                         {project.demoUrl && (
