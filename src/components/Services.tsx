@@ -176,7 +176,7 @@ export default function ProjectsShowcase() {
                             rel="noreferrer"
                             className="p-2 rounded-xl bg-[#141722] border border-white/10 text-white hover:border-[#00aeef] hover:text-[#00aeef] transition-colors"
                           >
-                            <Github className="w-4 h-4" />
+                            
                           </a>
                         )}
                         {project.demoUrl && (
@@ -285,7 +285,7 @@ export default function ProjectsShowcase() {
                       rel="noreferrer"
                       className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#141722] border border-white/10 text-white text-xs font-semibold hover:border-[#00aeef] transition-colors"
                     >
-                      <Github className="w-4 h-4" />
+                      
                       <span>Repository</span>
                     </a>
                   )}
