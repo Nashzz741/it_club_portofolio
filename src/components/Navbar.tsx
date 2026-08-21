@@ -29,18 +29,18 @@ export default function Navbar() {
 
         {/* Menu Navigasi (Desktop) */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-[#c2c7d0]">
-          <button className="flex items-center gap-1 hover:text-white transition">
-            Services <ChevronDown className="w-4 h-4" />
-          </button>
+          <Link href="#hero" className="hover:text-white transition">
+            Home
+          </Link>
           <Link href="#projects" className="hover:text-white transition">
             Projects
           </Link>
           <Link href="#structure" className="hover:text-white transition">
             Structure
           </Link>
-          <button className="flex items-center gap-1 hover:text-white transition">
-            About Us <ChevronDown className="w-4 h-4" />
-          </button>
+          <Link href="#about" className="hover:text-white transition">
+            About
+          </Link>
         </nav>
 
         {/* CTA Buttons (Desktop) */}
@@ -66,10 +66,9 @@ export default function Navbar() {
       {/* Menu Drawer (Mobile) */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full md:hidden bg-[#0b0c10]/95 backdrop-blur-xl border-b border-[#1f222e] px-4 pt-2 pb-6 flex flex-col gap-4 text-sm font-medium text-[#c2c7d0] shadow-2xl">
-          <button className="flex items-center justify-between w-full py-2 hover:text-white transition border-b border-white/5">
-            <span>Services</span>
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          <Link href="#hero" className="hover:text-white transition">
+            Home
+          </Link>
           <Link
             href="#projects"
             onClick={() => setIsOpen(false)}
@@ -84,10 +83,9 @@ export default function Navbar() {
           >
             Structure
           </Link>
-          <button className="flex items-center justify-between w-full py-2 hover:text-white transition border-b border-white/5">
-            <span>About Us</span>
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          <Link href="#about" className="hover:text-white transition">
+            About
+          </Link>
 
           {/* CTA Buttons (Mobile) */}
           <div className="flex flex-col gap-2 pt-2">

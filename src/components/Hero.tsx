@@ -55,7 +55,7 @@ const nodes = [
 
 export default function Hero() {
   return (
-    <section className="relative h-auto pt-24 pb-8 md:pt-32 md:pb-20 flex flex-col items-center justify-start overflow-hidden bg-[#07080b]">
+    <section id="hero" className="relative h-auto pt-24 pb-8 md:pt-32 md:pb-20 flex flex-col items-center justify-start overflow-hidden bg-[#07080b]">
       {/* AMBIENT LIGHT FLARES */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[180px] sm:h-[350px] bg-gradient-to-tr from-[#00aeef]/20 via-blue-600/10 to-transparent rounded-full blur-[90px] sm:blur-[140px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] sm:w-[300px] h-[180px] sm:h-[300px] bg-[#00aeef]/15 rounded-full blur-[60px] sm:blur-[90px] pointer-events-none" />

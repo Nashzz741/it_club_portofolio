@@ -1,11 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
   Sparkles,
   FolderGit2,
   FolderPlus,
+  X,
+  Utensils,
 } from "lucide-react";
 
 interface ProjectItem {
@@ -13,29 +16,33 @@ interface ProjectItem {
   title: string;
   category: string;
   description: string;
+  fullDescription?: string;
   image: string;
   demoUrl?: string;
   githubUrl?: string;
   techStack: string[];
 }
 
-// Tambahkan project baru kamu di dalam array ini nanti
 const projectsData: ProjectItem[] = [
-  /*
   {
     id: "1",
-    title: "Judul Proyek Baru",
-    category: "Web Development",
-    description: "Deskripsi singkat mengenai proyek yang kamu buat.",
-    image: "/images/proyek1.jpg",
-    demoUrl: "https://example.com",
-    githubUrl: "https://github.com",
-    techStack: ["Next.js", "Tailwind CSS", "Laravel"],
+    title: "Kolaborasi IT & Tata Boga",
+    category: "Cross-Department Project",
+    description:
+      "Proyek Landing page hasil kolaborasi kreatif antara jurusan IT dan Tata Boga.",
+    fullDescription:
+      "Proyek ini merupakan kolaborasi antara anggota IT-Club dan Jurusan Tata Boga. Dalam proyek ini, membuat sebuah landing page yg bagus modern dan responsif.",
+    image: "/images/image10.png", // Gantilah dengan path gambar kamu di folder public
+    demoUrl: "tataboga.vercel.app", // Isi link demo (misal: "https://tataboga-demo.com") jika ada, atau kosongkan
+    githubUrl: "", // Isi link GitHub jika ada
+    techStack: ["Next.js", "Tailwind CSS", "UI/UX Design", "Culinary Tech"],
   },
-  */
 ];
 
 export default function ProjectsShowcase() {
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
+    null,
+  );
   const isEmpty = projectsData.length === 0;
 
   return (
@@ -77,7 +84,7 @@ export default function ProjectsShowcase() {
             className="text-[#787f95] max-w-md text-sm leading-relaxed"
           >
             Showcase hasil karya dan proyek praktis anggota IT-Club dari
-            berbagai alur pembelajaran.
+            berbagai alur pembelajaran dan kolaborasi.
           </motion.p>
         </div>
 
@@ -101,7 +108,7 @@ export default function ProjectsShowcase() {
             </p>
           </motion.div>
         ) : (
-          /* Grid Proyek (Otomatis tampil jika projectsData diisi) */
+          /* Grid Proyek */
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projectsData.map((project, index) => (
               <motion.div
@@ -111,7 +118,8 @@ export default function ProjectsShowcase() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="group relative rounded-3xl overflow-hidden bg-[#0e1017]/90 border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-[#00aeef]/50 hover:shadow-[0_0_35px_rgba(0,174,239,0.15)] flex flex-col justify-between"
+                onClick={() => setSelectedProject(project)}
+                className="group relative rounded-3xl overflow-hidden bg-[#0e1017]/90 border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-[#00aeef]/50 hover:shadow-[0_0_35px_rgba(0,174,239,0.15)] flex flex-col justify-between cursor-pointer"
               >
                 {/* Image Preview Container */}
                 <div className="relative w-full h-64 bg-[#141722] overflow-hidden">
@@ -122,7 +130,8 @@ export default function ProjectsShowcase() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0e1017] via-[#0e1017]/40 to-transparent" />
 
-                  <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#07080b]/80 border border-white/15 text-[#00aeef] backdrop-blur-md">
+                  <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#07080b]/80 border border-white/15 text-[#00aeef] backdrop-blur-md flex items-center gap-1.5">
+                    <Utensils className="w-3 h-3" />
                     {project.category}
                   </span>
                 </div>
@@ -133,7 +142,7 @@ export default function ProjectsShowcase() {
                     <h3 className="text-2xl font-extrabold text-white group-hover:text-[#00aeef] transition-colors mb-2">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-[#9aa1b9] leading-relaxed mb-6">
+                    <p className="text-sm text-[#9aa1b9] leading-relaxed mb-6 line-clamp-2">
                       {project.description}
                     </p>
                   </div>
@@ -153,10 +162,13 @@ export default function ProjectsShowcase() {
                     <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2 text-[#787f95]">
                         <FolderGit2 className="w-4 h-4 text-[#00aeef]" />
-                        <span>Featured Project</span>
+                        <span>Klik untuk detail modal</span>
                       </div>
 
-                      <div className="flex items-center gap-3">
+                      <div
+                        className="flex items-center gap-3"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         {project.githubUrl && (
                           <a
                             href={project.githubUrl}
@@ -164,7 +176,7 @@ export default function ProjectsShowcase() {
                             rel="noreferrer"
                             className="p-2 rounded-xl bg-[#141722] border border-white/10 text-white hover:border-[#00aeef] hover:text-[#00aeef] transition-colors"
                           >
-                            
+                            <Github className="w-4 h-4" />
                           </a>
                         )}
                         {project.demoUrl && (
@@ -187,6 +199,114 @@ export default function ProjectsShowcase() {
           </div>
         )}
       </div>
+
+      {/* MODAL DETAIL PROYEK */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            />
+
+            {/* Content Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-3xl bg-[#0e1017] border border-white/15 rounded-3xl overflow-hidden shadow-2xl z-10 max-h-[90vh] flex flex-col"
+            >
+              {/* Header Image */}
+              <div className="relative w-full h-64 md:h-80 bg-[#141722]">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e1017] via-transparent to-black/40" />
+
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-white hover:text-black transition-all border border-white/20"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <span className="absolute bottom-4 left-6 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-[#00aeef] text-black font-semibold">
+                  {selectedProject.category}
+                </span>
+              </div>
+
+              {/* Body Content */}
+              <div className="p-6 md:p-8 overflow-y-auto space-y-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-3">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-[#9aa1b9] leading-relaxed">
+                    {selectedProject.fullDescription ||
+                      selectedProject.description}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#787f95] mb-3">
+                    Teknologi & Alur Pembelajaran
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs font-medium px-3 py-1.5 rounded-lg bg-[#141722] text-[#00aeef] border border-[#00aeef]/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Footer Buttons */}
+                <div className="pt-6 border-t border-white/10 flex items-center justify-end gap-3">
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs font-semibold hover:bg-white/10 transition-all"
+                  >
+                    Tutup
+                  </button>
+
+                  {selectedProject.githubUrl && (
+                    <a
+                      href={selectedProject.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#141722] border border-white/10 text-white text-xs font-semibold hover:border-[#00aeef] transition-colors"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>Repository</span>
+                    </a>
+                  )}
+
+                  {selectedProject.demoUrl && (
+                    <a
+                      href={selectedProject.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#00aeef] text-black font-bold text-xs hover:bg-[#0096ce] transition-all"
+                    >
+                      <span>Live Demo</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
